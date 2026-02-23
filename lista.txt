@@ -1,0 +1,10 @@
+# File di esempio per il programma negozio.py
+# Formato: prezzo tipo (Y=animale, N=altro articolo)
+
+150.00 Y
+25.00 N
+30.00 N
+15.00 N
+20.00 N
+35.00 N
+200.00 Y

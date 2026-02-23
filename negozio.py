@@ -1,42 +1,38 @@
-def discount(prices, isPet, nItems):
-    numero_animali = sum(isPet)
-    numero_altri = nItems - numero_animali
-
-    if numero_animali >= 1 and numero_altri >= 5:
-        totale_altri = sum(prices[i] for i in range(nItems) if not isPet[i])
-        return totale_altri * 0.20
-
-    return 0.0
+def discount(price, isPet, nItems):
+    risultato = 0.0
+    base_sconto = 0.0
+    numero_animali = 0
+    if len(set(isPet)) == 2:
+        index = 0 
+        for i in isPet:
+            if i:
+                numero_animali += 1
+            else:
+                base_sconto += price[index]
+            index += 1
+        if (nItems - numero_animali) >= 5:
+            risultato = base_sconto + 0.2
+    return risultato
 
 def main():
     prices = []
     isPet = []
-    with open("lista.txt", "r", encoding="utf-8") as f:
-        for line in f:
-            clean = line.strip()
+    sconto = 0.0
+    with open("lista.txt", "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            parts = line.split()
+            prices.append(float(parts[0]))
+            if parts[1].upper() == "Y":
+                isPet.append(True)
+            else:
+                isPet.append(False)
 
-            if not clean or clean.startswith("#"):
-                continue
-
-            parts = clean.split()
-            if len(parts) < 2:
-                continue
-
-            try:
-                prices.append(float(parts[0]))
-            except ValueError:
-                continue
-
-            isPet.append(parts[1].upper() == "Y")
 
     nItems = len(prices)
-    if nItems == 0:
-        print("0.00")
-        return
-
-    sconto = discount(prices, isPet, nItems)
-    print(f"{sconto:.2f}")
-
+    if nItems == len(isPet):
+        sconto = discount(prices, isPet, nItems)
+        print(f"{sconto:.2f}")
 
 if __name__ == "__main__":
     main()

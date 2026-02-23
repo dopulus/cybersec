@@ -11,7 +11,7 @@ def discount(price, isPet, nItems):
                 base_sconto += price[index]
             index += 1
         if (nItems - numero_animali) >= 5:
-            risultato = base_sconto + 0.2
+            risultato = base_sconto * 0.2
     return risultato
 
 def main():
@@ -27,7 +27,6 @@ def main():
                 isPet.append(True)
             else:
                 isPet.append(False)
-
 
     nItems = len(prices)
     if nItems == len(isPet):
